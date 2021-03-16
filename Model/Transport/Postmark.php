@@ -350,7 +350,7 @@ class Postmark implements \Zend\Mail\Transport\TransportInterface
                 $attachments[] = [
                     'ContentType' => $part->getType(),
                     'Name' => $part->getFileName(),
-                    'Content' => $part->getRawContent()
+                    'Content' => base64_encode($part->getRawContent())
                 ];
             }
         }

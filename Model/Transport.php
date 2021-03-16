@@ -86,7 +86,7 @@ class Transport extends \Magento\Framework\Mail\Transport implements \Magento\Fr
             $message->setBody($this->message->getBody());
 
             $this->transportPostmark->send($message);
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             throw new \Magento\Framework\Exception\MailException(new \Magento\Framework\Phrase($e->getMessage()), $e);
         }
     }
