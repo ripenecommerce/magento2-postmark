@@ -347,11 +347,16 @@ class Postmark implements \Zend\Mail\Transport\TransportInterface
         $parts = $message->getBody()->getParts();
         foreach ($parts as $part) {
             if ($part->getType() !== Mime::TYPE_TEXT && $part->getType() !== Mime::TYPE_HTML) {
-                $part->setEncoding(\Laminas\Mime\Mime::ENCODING_BASE64);
+                if ($part instanceof \Laminas\Mime\Part) {
+                    $part->setEncoding(\Laminas\Mime\Mime::ENCODING_BASE64);
+                    $encodedContent = $part->getContent();
+                } else {
+                    $encodedContent = base64_encode($part->getRawContent());
+                }
                 $attachments[] = [
                     'ContentType' => $part->getType(),
                     'Name' => $part->getFileName(),
-                    'Content' => $part->getContent()
+                    'Content' => $encodedContent
                 ];
             }
         }
