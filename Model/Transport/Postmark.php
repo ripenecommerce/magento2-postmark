@@ -352,10 +352,16 @@ class Postmark implements \Laminas\Mail\Transport\TransportInterface
         $parts = $message->getBody()->getParts();
         foreach ($parts as $part) {
             if ($part->getType() !== Mime::TYPE_TEXT && $part->getType() !== Mime::TYPE_HTML) {
+                if ($part instanceof \Laminas\Mime\Part) {
+                    $part->setEncoding(\Laminas\Mime\Mime::ENCODING_BASE64);
+                    $encodedContent = $part->getContent();
+                } else {
+                    $encodedContent = base64_encode($part->getRawContent());
+                }
                 $attachments[] = [
                     'ContentType' => $part->getType(),
                     'Name' => $part->getFileName(),
-                    'Content' => base64_encode($part->getRawContent())
+                    'Content' => $encodedContent
                 ];
             }
         }
