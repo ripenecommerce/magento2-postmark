@@ -38,6 +38,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_objectManager;
 
     /**
+     * @var array
+     */
+    protected $_subscribed;
+
+    /**
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Framework\ObjectManagerInterface

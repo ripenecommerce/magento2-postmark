@@ -79,10 +79,24 @@ class Transport extends \Magento\Framework\Mail\Transport implements \Magento\Fr
         try {
             // Create a Laminas\Mail\Message object to pass to Postmark
             $headers = new LaminasHeaders();
-            $headers->addHeaders($this->message->getHeaders());
+
+            $headersArray = $this->message->getHeaders();
+            if (isset($headersArray['To'])) {
+                $to = $headersArray['To'];
+                unset($headersArray['To']);
+            }
+
+            if (isset($headersArray['Subject'])) {
+                $subject = $headersArray['Subject'];
+                unset($headersArray['Subject']);
+            }
+
+            $headers->addHeaders($headersArray);
 
             $message = new LaminasMessage();
             $message->setHeaders($headers);
+            $message->addTo($to);
+            $message->setSubject($subject);
             $message->setBody($this->message->getBody());
 
             $this->transportPostmark->send($message);
