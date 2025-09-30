@@ -26,6 +26,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_ENABLED = 'postmark/settings/enabled';
     const XML_PATH_DEBUG_MODE = 'postmark/settings/debug_mode';
     const XML_PATH_APIKEY = 'postmark/settings/apikey';
+    const XML_PATH_MESSAGESTREAM = 'postmark/settings/messagestream';
 
     /**
      * @var \Psr\Log\LoggerInterface
@@ -74,6 +75,19 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->scopeConfig->getValue(
             self::XML_PATH_APIKEY,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+    
+    /**
+     * @param null $store
+     * @return mixed
+     */
+    public function getMessageStream($store = null)
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_MESSAGESTREAM,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
             $store
         );
