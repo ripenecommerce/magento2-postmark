@@ -14,6 +14,12 @@
             "email": "sbuchanan@ripen.com",
             "homepage": "https://ripen.com",
             "role": "Developer"
+        },
+        {
+            "name": "Jay Williams",
+            "email": "jay@myd3.com",
+            "homepage": "https://myd3.com",
+            "role": "Developer"
         }
     ],
     "license": [
